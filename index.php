@@ -57,16 +57,19 @@
 	<body onload="javascript:init()">
 		<div id="left"  >
 			<div id="left-info">
-
+				<div id="profile">
 							<img id="head" src="head.jpg" >
-							<h1 id="user_name" onclick="javascript:alert('hehe');">空之境界</h1>
-							<p class="title">The Garden of Sinner</p>
-							<p><a href="#">全部文章</a></p>
-							<p><a href="#">个人资料</a></p>
-							<p><a href="#">注销</a></p>
-							
+							<h1 id="user_name">空之境界</h1>
+							<p id="sub_name">The Garden of Sinner</p>
+							<table id="action">
+								<tr><td><p><a href="#">全部文章</a></p></tr></td>
+								<tr><td><p><a href="#">个人资料</a></p></tr></td>
+								<tr><td><p><a href="#">注销</a></p></tr></td>
+							</table>
+				</div>
+					
+					
 			</div>
-			
 			
 		</div>
 		
@@ -78,7 +81,7 @@
 			<div id="full">
 			</div>
 		</div>
-			<form action="detail.php" method="post" id="detail">
+			<form action="detail.php" method="post">
 				<input name="Name" value="俯瞰风景" type="hidden">
 			</form>
 	</body>
