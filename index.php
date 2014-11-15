@@ -1,85 +1,75 @@
+<?php
+    header("Content-Type: text/html;charset=utf-8");
+    if($_COOKIE["isLogin"] != '1')
+    {
+        echo "未登录!2秒后跳转到登陆页面";
+        header("Refresh:2;url=login.php");
+        die();
+    }
+
+    $username = $_COOKIE["username"];
+    $link = mysql_connect('localhost','root','root');
+    if(!$link){
+        die('Fail to connect database'.mysql_error());
+    }
+
+    mysql_select_db('article',$link) or die('Unable to use database bookdb: '.mysql_error());
+    mysql_query("set names 'utf8'");
+
+    $sqlfind =  "select * from user where Username = '".$username."'";
+    $result = mysql_query($sqlfind);
+    if(!($row = mysql_fetch_row($result)))
+    {
+        mysql_close($link);
+        echo "未识别用户,请重新登陆!2秒后跳转到登陆页面";
+        header("Refresh:2;url=login.php");
+        die();
+    }
+    $Class = explode("|",$row[1]);
+    $cClass = count($Class);
+
+    mysql_close($link);
+?>
 <html>
 	<head>
 		<title>article manager</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link href="style.css" rel="stylesheet" type="text/css"/>
 		<script language="javascript">
-			var count = 0;
-			var nameindex = new Array();
-			var Name = new Array();
-			var Author = new Array();
-			var Content = new Array();
 
-		<?php
-					$link = mysql_connect('localhost','root','root');
-					if(!$link){
-						die('Fail to connect database'.mysql_error());
-					}
-
-					mysql_select_db('article',$link) or die('Unable to use database bookdb: '.mysql_error());
-					mysql_query("set names 'utf8'");
-					
-					$sqlfind =  "select * from book";
-					$count = 0;
-					$result = mysql_query($sqlfind);
-					while ( $row = mysql_fetch_row($result)) {
-						foreach ($row as $key => $value) {
-							switch($key)
-							{
-								case 0:
-									echo "Name[".$count."]='".$value."';";
-									echo "nameindex['".$value."']='".$count."';";
-									break;
-								case 1:
-									echo "Author[".$count."]='".$value."';";
-									break;
-								case 5:
-									echo "Content[".$count."]=\"".str_replace("\r\n", "\\n\\\n", htmlspecialchars($value,ENT_COMPAT,UTF-8))."\";";
-									break;
-								default:
-									break;
-							}
-							
-							# code...
-						}
-						$count++;
-						# code...
-					}
-					echo "count = ".$count.";";
-					mysql_close($link);
-		?>
-		
 
 		</script>
 		<script language="javascript" src="script.js"></script>
 	</head>
 	
-	<body onload="javascript:init()">
-		<div id="left"  >
-			<div id="left-info">
-
-							<img id="head" src="head.jpg" >
-							<h1 id="user_name" onclick="javascript:alert('hehe');">空之境界</h1>
-							<p class="title">The Garden of Sinner</p>
-							<p><a href="#">全部文章</a></p>
-							<p><a href="#">个人资料</a></p>
-							<p><a href="#">注销</a></p>
-							
-			</div>
-			
-			
+	<body>
+		<div id="left" >
+            <img id="head" src="head-img/head.jpg" >
+            <h1 id="username"><?php echo $username ?></h1>
+        <?php
+            $phd = "<p><a href=\"#\">";
+            $ped = "</a></p>";
+            
+            for($i = 0;$i < $cClass;$i++)
+            {
+                $Classname = explode(",",$Class[$i]);
+                echo $phd.$Classname[0].$ped;
+            }
+        ?>
+            <br>
+            <p><a href="login.php">注销</a></p>
 		</div>
 		
-		<div id="right-info" >
-		<!--<div id="right-info" style="background-image:url('BG.jpg');width:70%;height:100%;overflow-y:auto" id="main">-->
-			<div id="content">
-				<!--<button style="BACKGROUND-COLOR:transparent;" onclick="javascript:makecontent(String1,String2,String3);">hehe</button>-->	
-			</div>
-			<div id="full">
-			</div>
+		<div id="right" >
+            <div>
+                <h1>
+                    测试标题CeShiBiaoTi
+                </h1>
+                <p>
+                    字体测试Font test
+                </p>
+            </div>
 		</div>
-			<form action="detail.php" method="post" id="detail">
-				<input name="Name" value="俯瞰风景" type="hidden">
-			</form>
+
 	</body>
 </html>

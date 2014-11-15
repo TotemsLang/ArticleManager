@@ -21,7 +21,7 @@
         $sqlfind =  "select Password from user where Username = '".$_POST['username']."'";
         $result = mysql_query($sqlfind);
         $row = mysql_fetch_row($result);
-        
+        mysql_close($link);
         
         
 		if($_POST['password'] == $row[0])
@@ -111,7 +111,7 @@
 				</table>
 			</form>
 			<a id="log" class="large awesome" onclick="javascript:login();">登录</a>
-			<a id="reg" class="large awesome" >注册</a>
+			<a id="reg" class="large awesome" href="register.php" >注册</a>
 		</div>
 	</body>
 </html>
