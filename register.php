@@ -31,8 +31,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <script src="md5.js"></script>
-        <script src="reg.js"></script>
+        <script src="scripts/md5.js"></script>
+        <script src="scripts/reg.js"></script>
     </head>
     
     <body>

@@ -33,35 +33,39 @@
 <html>
 	<head>
 		<title>article manager</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link href="style.css" rel="stylesheet" type="text/css"/>
-		<script language="javascript">
-
-
-		</script>
-		<script language="javascript" src="script.js"></script>
+		<meta charset="utf-8" />
+		<link href="css/style.css" rel="stylesheet" type="text/css"/>
+		<script language="javascript" src="scripts/script.js"></script>
 	</head>
 	
 	<body>
 		<div id="left" >
-            <img id="head" src="head-img/head.jpg" >
+            <img id="head" src="images/head-img/head.jpg" >
             <h1 id="username"><?php echo $username ?></h1>
+            <p><a href="new.php">新建文章</a></p>
+            <div id="class">
         <?php
-            $phd = "<p><a href=\"#\">";
+            $phd = "<p><a onclick=\"javascript:get_article(2,this.children[0].value)\" href=\"#\">";
+            $hidhd = "<input value=\"";
+            $hided = "\" hidden=\"true\">";
             $ped = "</a></p>";
+            
             
             for($i = 0;$i < $cClass;$i++)
             {
                 $Classname = explode(",",$Class[$i]);
-                echo $phd.$Classname[0].$ped;
+                echo $phd.$hidhd.$Class[$i].$hided.$Classname[0].$ped;
             }
         ?>
+            </div>
+            
             <br>
+            
             <p><a href="login.php">注销</a></p>
 		</div>
 		
 		<div id="right" >
-            <div>
+            <div id="content">
                 <h1>
                     测试标题CeShiBiaoTi
                 </h1>
@@ -70,6 +74,8 @@
                 </p>
             </div>
 		</div>
+        <iframe id="guide" src="guide.html"  scrolling="no">
+        </iframe>
 
 	</body>
 </html>
