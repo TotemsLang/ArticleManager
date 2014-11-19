@@ -1,0 +1,61 @@
+<html>
+	<head>
+	<script type="text/javascript">
+		var type = 0;
+		var typestring = new Array("标题","时间");
+		function change(){
+			type = (type + 1) % 2;
+			document.getElementById('class').innerHTML = typestring[type];
+		}
+		
+		function gofind(){
+			var section = "";
+			var name = document.getElementById('find').value;
+			parent.get_article(type,name);
+		}
+
+</script>
+	<style type="text/css">
+		#class{
+			position:absolute;
+			top:4px;
+			left:5px;
+			cursor:pointer;
+			color:#d0d0d0;
+			font-size:16px;
+			font-family:黑体;
+			text-shadow:0px 0px 5px #000000;
+			border-radius: 10px;
+			user-select: none;
+		}
+		#class:hover{
+			font-weight:bold;
+		}
+		#search{
+			position:absolute;
+			top:5px;
+			left:230px;
+			cursor:pointer;
+		}
+		#find{
+			position:absolute;
+			background-color:transparent;
+			margin-top:2px;
+			top:0px;
+			left:52px;
+			border-radius: 10px; 
+			width:200px;
+			top:0;
+			color:#D0D0D0;
+			
+		}
+		
+	</style>
+	</head>
+	<body style="border:0;margin:0;padding:0;">
+			<span id="class" onclick="javascript:change();" onselectstart="return false">标题</span>
+			<input id="find" name="hehe" onkeydown="javascript:if(event.keyCode==13){gofind();}"></input>
+			<img id="search" src="images/find.png" onclick="gofind();"></img>
+	</body>
+	
+</html>
