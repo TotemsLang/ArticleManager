@@ -46,8 +46,8 @@
 	<meta charset="utf-8">
     <script src="scripts/md5.js"></script>
 	<script>
-		function login(){
-            var passwd = document.getElementById('pwm').value;
+		function to_login(){
+            var passwd = document.getElementById('password').value;
             document.getElementById('pw').value = hex_md5(passwd);
 			document.getElementById('log_post').submit();
 		}
@@ -57,22 +57,27 @@
 	</head>
 	<body>
 		<div id="login">
-			<h1>用户登录</h1>
-			<form id="log_post" action="login.php?action=login" method="post">
-				<table>
-					<tr>
-						<td><p>用户名：</p></td>
-						<td><input name="username"/></td>
-					</tr>
-					<tr>
-						<td><p>密码：</p></td>
-						<td><input id="pwm" name="passwd" type="password"></td>
-					</tr>
-                    <input id="pw" name="password" type="password" hidden="true">
-				</table>
-			</form>
-			<a id="log" class="large awesome" onclick="javascript:login();">登录</a>
-			<a id="reg" class="large awesome" href="register.php" >注册</a>
+            <form id="log_post" method="post" action="login.php?action=login" class="login">
+                <p>
+                  <label for="login">Username：</label>
+                  <input type="text" name="username" id="login">
+                </p>
+
+                <p>
+                  <label for="password">Password：</label>
+                  <input type="password" name="passwd" id="password">
+                </p>
+
+                <p class="login-submit">
+                  <button type="button" onclick="javascript:to_login();" class="login-button">Login</button>
+                </p>
+                
+                <input id="pw" name="password" type="password" hidden="true">
+                
+
+                <p class="forgot-password"><a href="register.php">Click here to register</a></p>
+            </form>
+            
 		</div>
 	</body>
 </html>

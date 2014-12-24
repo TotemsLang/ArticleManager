@@ -107,7 +107,12 @@ widgToolbarItems.push("unorderedlist");
 widgToolbarItems.push("orderedlist");
 widgToolbarItems.push("image");
 widgToolbarItems.push("htmlsource");
-widgToolbarItems.push("blockformat");
+
+/*widgToolbarItems.push("blockformat");*/
+widgToolbarItems.push("title");
+widgToolbarItems.push("author");
+widgToolbarItems.push("submit");
+widgToolbarItems.push("back");
 
 /* Options on block format select element. Consists of string pairs (option value, option label) */
 var widgSelectBlockOptions = new Array();
@@ -268,8 +273,8 @@ function widgEditor(replacedTextareaID)
 	/* Make editor editable */
 	this.initEdit();
 	
-	/* Attach onsubmit to parent form */
-	this.modifyFormSubmit();
+	/* Attach onsubmit to parent form
+	this.modifyFormSubmit();*/
 	
 	return true;
 }
@@ -994,8 +999,24 @@ function widgToolbar(theEditor)
 				
 				break;
 				
+            case "submit":
+                this.addButton(this.theList.id + "ButtonSubmit", "widgButtonSubmit", "Submit", "submit");
+                
+                break;
+            case "back":
+                this.addButton(this.theList.id + "ButtonBack", "widgButtonBack", "Back", "back");
+                
+                break;
 			case "blockformat":
 				this.addSelect(this.theList.id + "SelectBlock", "widgSelectBlock", widgSelectBlockOptions, "formatblock");
+				
+				break;
+            case "title":
+				this.addInput("InputTitle", "widgInputTitle","Title");
+				
+				break;
+            case "author":
+				this.addInput("InputAuthor", "widgInputAuthor","Author");
 				
 				break;
 		}
@@ -1005,6 +1026,27 @@ function widgToolbar(theEditor)
 }
 
 
+widgToolbar.prototype.addInput = function(theID, theClass, theLabel)
+{
+    var menuItem = document.createElement("li");
+    var theInput = document.createElement("input");
+    var inputLabel = document.createElement("label");
+    
+    menuItem.id = "editorWidgToolbar" + theID;
+	menuItem.className = "widgEditInput";
+    
+    theInput.id = theID;
+    theInput.className = theClass;
+    
+    inputLabel.innerHTML = theLabel + ": ";
+    inputLabel.setAttribute("for", theInput.id);
+    
+    menuItem.appendChild(inputLabel);
+    menuItem.appendChild(theInput);
+    this.theList.appendChild(menuItem);
+    
+    return true;
+}
 
 
 
@@ -1197,6 +1239,16 @@ function widgToolbarAction()
 			theWidgEditor.switchMode();
 			
 			break;
+        
+        case "submit":
+            save(current_Index);
+            
+            break;
+            
+        case "back":
+            back();
+            
+            break;
 			
 		case "link":
 			if (this.parentNode.className.classExists("on"))

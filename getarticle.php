@@ -14,11 +14,11 @@
     mysql_select_db('article',$link) or die('Unable to use database article: '.mysql_error());
     mysql_query("set names 'utf8'");
 
-    if($_GET["method"] == 0)
+    
+    if($_GET["method"] == 0)//根据名字查询
     {
         $sqlfind = "select * from book where `Name` = '".$_GET["value"]."'";
         $result = mysql_query($sqlfind);
-        
         while ( $row = mysql_fetch_row($result)) 
         {
             echo "<div>";
@@ -36,11 +36,10 @@
             }
             echo "</div>";
         }
-        
         mysql_close($link);
         die();
     }
-    else if($_GET["method"] == 1)
+    else if($_GET["method"] == 1)//根据创建时间查询
     {
         $sqlfind = "select * from book where `CTime` = '".$_GET["value"]."'";
         $result = mysql_query($sqlfind);
@@ -62,22 +61,30 @@
             }
             echo "</div>";
         }
-        
         mysql_close($link);
         die();
     }
-    else if($_GET["method"] == 2)
+    else if($_GET["method"] == 2)//根据类型查询
     {
-        $article_list = explode(",",$_GET["value"]);
-        $count = count($article_list);
-
-        for($i = 1; $i < $count; $i++)
+        $class_id = $_GET["value"];
+        $sqlfind =  "select `Article` from class where `ID` = '".$class_id."'";
+        $result = mysql_query($sqlfind);
+        if(!($row = mysql_fetch_row($result)))
         {
-            echo "<div>";
+            mysql_close($link);
+            echo $root_select[$i]."：分类获取失败！请联系管理员";
+            die(mysql_error());
+        }
+        $article_list = explode(",",$row[0]);
+        $count = count($article_list);
+        $flag = 1;
+        for($i = 0; $i < $count; $i++)
+        {
             $sqlfind = "select * from book where `Index` = '".$article_list[$i]."'";
             $result = mysql_query($sqlfind);
             while ( $row = mysql_fetch_row($result)) 
             {
+                echo "<div>";
                 foreach ($row as $key => $value) 
                 {
                     switch($key)
@@ -90,16 +97,15 @@
                             break;
                     }
                 }
+                echo "</div>";
             }
-            echo "</div>";
         }
         die();
     }
-    else
+    else//全部文章查询
     {
-        $sqlfind = "select * from book";
+        $sqlfind = "select * from book where `Class` = '".$_COOKIE['username']."'";
         $result = mysql_query($sqlfind);
-        
         while ( $row = mysql_fetch_row($result)) 
         {
             echo "<div>";
@@ -116,12 +122,8 @@
                 }
             }
             echo "</div>";
-        }
-        
+        }  
         mysql_close($link);
         die();
     }
-
-    
-
 ?>
