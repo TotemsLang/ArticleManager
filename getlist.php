@@ -33,8 +33,6 @@
         $sqlfind =  "select * from class where `ID` = '".$next_class[1]."'";
         $result = mysql_query($sqlfind);
         $row = mysql_fetch_row($result);
-        if(!$row)
-            die("ERROR");
         $ajax_back = $row[1].",".$next_class[1];
 
         for($i = 2; $i < $length; $i++)
@@ -50,8 +48,6 @@
         $sqlfind = "select Name from book where `Index` = ".$child_article[0];
         $result = mysql_query($sqlfind);
         $row = mysql_fetch_row($result);
-        if(!$row)
-            die("ERROR");
         $ajax_back = $ajax_back.$row[0].",".$child_article[0];
         $length = count($child_article);
         

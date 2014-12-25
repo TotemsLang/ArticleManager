@@ -28,9 +28,7 @@
     $root_class_ID = $row[1];
     $head_img = $row[4];
     
-        echo $sqlfind;
     $sqlfind =  "select * from class where `ID` = '".$root_class_ID."'";
-    echo $sqlfind;
     $result = mysql_query($sqlfind);
     if(!($row = mysql_fetch_row($result)))
     {

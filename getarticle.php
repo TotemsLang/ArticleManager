@@ -13,11 +13,12 @@
     }
     mysql_select_db('article',$link) or die('Unable to use database article: '.mysql_error());
     mysql_query("set names 'utf8'");
-
+    
+    $username = $_COOKIE["username"];
     
     if($_GET["method"] == 0)//根据名字查询
     {
-        $sqlfind = "select * from book where `Name` = '".$_GET["value"]."'";
+        $sqlfind = "select * from book where `Name` = '".$_GET["value"]."' and `Class` = '".$username."'";
         $result = mysql_query($sqlfind);
         while ( $row = mysql_fetch_row($result)) 
         {
@@ -41,7 +42,7 @@
     }
     else if($_GET["method"] == 1)//根据创建时间查询
     {
-        $sqlfind = "select * from book where `CTime` = '".$_GET["value"]."'";
+        $sqlfind = "select * from book where `CTime` = '".$_GET["value"]."' and `Class` = '".$username."'";
         $result = mysql_query($sqlfind);
         
         while ( $row = mysql_fetch_row($result)) 

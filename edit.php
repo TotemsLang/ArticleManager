@@ -24,7 +24,7 @@
     $is_new = $_GET['isnew'];
     
     if(!($up_content | $up_author | $up_title))
-        echo "参数获取失败！";
+        echo "(部分内容为空)";
 
     if($is_new == '0')
     {

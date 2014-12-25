@@ -85,7 +85,10 @@ function show_detail(index)
     
     var show = "<div class=\"article_detail\" style=\"text-align:left\">";	
     show += "<h1 class='title'>";
-    show += Title[i];
+    if(Title[i] == "")
+        show += "无标题"
+    else
+        show += Title[i];
     show += "</h1><h3>";
     show += Author[i];
     show += "</h3>";
@@ -141,7 +144,10 @@ function makecontent(a,b,c,d,e,i,isdetail)
     show += "<span  onclick=\"javascript:show_detail('"
     show += i;
     show += "')\">";
-    show += a;
+    if(a == "")
+        show += "无标题"
+    else
+        show += a;
     show += "</span></h1><h3>";
     show += b;
     show += "</h3>";
@@ -153,10 +159,6 @@ function makecontent(a,b,c,d,e,i,isdetail)
     show += "<footer><address>";
     show += "<p>";
     show += e;
-    show += "&nbsp;&nbsp;";
-    show += "<span>";
-    show += "评论";
-    show += "</span>";
     show += "&nbsp;&nbsp;";
     show += "<span onclick='javascript:edit(";
     show += d;
